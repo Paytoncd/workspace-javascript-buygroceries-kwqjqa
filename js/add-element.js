@@ -9,6 +9,7 @@ $(".hot").each(function(){
 });
 // traverse the elements
 $('#one').next().next().text("milk");
+$('#one').remove();
 // add a new element by clicking the plus sign
 $('#todo').append('<li>candy</li>');
 $('#add').click(addElement);
@@ -20,11 +21,19 @@ function addElement() {
   $('#todo').append('<li>candy</li>');
 
   // add a input text box
+  $('#todo').append('<li><input type="text"></li>');
   
   // whenever the user are done add the element
+  $('input').blur(function(){
+      $(this).parent().addClass('cool');
+      var items = $(this).val();
+      // replace the input box by the text
+      $(this).parent().text(items);
+
+      //click the new list will change the style 
+    });
   
 }
-
 // bind click with the event handler
 $('li').click(changeStyle);
 //  click the li element will change the changeStyle
@@ -33,20 +42,19 @@ function changeStyle() {
     if($(this).hasClass('cool')){
       $(this).removeClass('cool');
       $(this).addClass('complete');
+    
     }else if($(this).hasClass('hot')){
       $(this).removeClass('hot');
       $(this).addClass('complete');
 
+    }else($(this).hasClass('complete'))
+      $(this).addClass('complete');
     }
-
-    
-
-}
-
 
 // delete complete element by clicking the trash can
 document.getElementById('remove').addEventListener('click', removeElement);
 
 function removeElement() {
   // remove the marked elements  -- element with style complete
+  $('li.complete').remove();
 }
